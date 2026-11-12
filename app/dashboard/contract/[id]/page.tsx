@@ -576,7 +576,7 @@ function DashboardContent() {
               amount={contract.totalAmount}
               description={contract.title}
               milestones={contract.milestones.map((m) => ({ title: m.title, amount: m.amount }))}
-              paypalClientId={paypalCreds.clientId}
+              paypalClientId={paypalCreds.clientId || health?.paypal?.clientId}
               paypalClientSecret={paypalCreds.clientSecret}
               liveSdkEnabled={Boolean(health?.paypal?.connected)}
               simulate={demoMode}

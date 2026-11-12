@@ -72,7 +72,7 @@ interface DraftRecipient {
 
 interface HealthSummary {
   gemini?: { connected?: boolean; model?: string };
-  paypal?: { connected?: boolean };
+  paypal?: { connected?: boolean; clientId?: string };
   supabase?: { connected?: boolean; bucket?: string };
 }
 
@@ -1625,6 +1625,7 @@ export default function LiveWorkspace() {
                             title: m.title,
                             amount: m.amount,
                           }))}
+                          paypalClientId={health?.paypal?.clientId}
                           liveSdkEnabled={true}
                           simulate={false}
                           onAuthorizeSuccess={handlePayPalAuthorized}

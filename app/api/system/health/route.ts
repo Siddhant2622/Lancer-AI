@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { checkGeminiHealth } from '@/lib/ai-engine';
 import { checkSupabaseHealth } from '@/lib/supabase';
-import { getPayPalAccessToken, isPayPalConfigured, PAYPAL_BASE_URL } from '@/lib/paypal';
+import { getEnvCredentials, getPayPalAccessToken, isPayPalConfigured, PAYPAL_BASE_URL } from '@/lib/paypal';
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -70,11 +70,19 @@ async function checkPayPalHealth(override?: { clientId?: string; clientSecret?: 
     };
   }
 
+  const publicClientId = (
+    override?.clientId ||
+    process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ||
+    getEnvCredentials(override).clientId ||
+    ''
+  ).trim();
+
   try {
     await getPayPalAccessToken(override);
     return {
       configured: true,
       connected: true,
+      clientId: publicClientId || undefined,
       environment: process.env.PAYPAL_ENV || 'sandbox',
       baseUrl: PAYPAL_BASE_URL,
     };
@@ -83,6 +91,7 @@ async function checkPayPalHealth(override?: { clientId?: string; clientSecret?: 
     return {
       configured: true,
       connected: false,
+      clientId: publicClientId || undefined,
       environment: process.env.PAYPAL_ENV || 'sandbox',
       baseUrl: PAYPAL_BASE_URL,
       error: msg.includes('invalid_client')

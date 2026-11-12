@@ -42,8 +42,11 @@ export default function PayPalButton({
   } | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  const effectiveClientId =
-    paypalClientId || process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '';
+  const effectiveClientId = (
+    paypalClientId ||
+    process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ||
+    ''
+  ).trim();
 
   const handleApiAuthorizeFlow = async () => {
     setLoading(true);
@@ -117,6 +120,7 @@ export default function PayPalButton({
     return (
       <div className="w-full max-w-sm space-y-2">
         <PayPalScriptProvider
+          key={`${effectiveClientId}-${currency}`}
           options={{
             clientId: effectiveClientId,
             currency,

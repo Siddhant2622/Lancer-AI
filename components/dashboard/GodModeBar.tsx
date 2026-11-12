@@ -22,7 +22,7 @@ import { useState } from 'react';
 export interface ServiceHealthState {
   gemini?: { configured: boolean; connected: boolean; model?: string; error?: string };
   supabase?: { configured: boolean; connected: boolean; buckets?: string[]; error?: string };
-  paypal?: { configured: boolean; connected: boolean; environment?: string; error?: string };
+  paypal?: { configured: boolean; connected: boolean; clientId?: string; environment?: string; error?: string };
 }
 
 interface GodModeBarProps {
