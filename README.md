@@ -162,3 +162,9 @@ Visit `http://localhost:3000` to view the landing page, or jump directly to `htt
 - [x] **AG Grid Enterprise-style Financial Ledger with Payload Inspector**
 - [x] **AI Contract Architect (Text-to-Escrow Generator Modal)**
 - [x] **Judge's God-Mode Control Bar with 3-Way Persona Switcher & 1-Click Scenarios**
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
